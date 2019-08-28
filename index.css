@@ -1,0 +1,47 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.row {
+  margin: 0 !important;
+}
+.work-dashboard-wrapper .col-lg-6.col-md-6 {
+  padding: 0;
+  margin: 0;
+  border: 5px solid transparent;
+}
+
+.work-dashboard-wrapper #bar-content,
+.work-dashboard-wrapper #fan-line-content {
+  overflow: hidden;
+}
+
+.title {
+  background: #ccc;
+}
+.title h3 {
+  display: inline-block;
+  padding: 6px 12px;
+  margin: 6px 0 6px 12px;
+  font-weight: normal;
+  font-size: 12px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+}
+li {
+  list-style: none
+}
+.top-content {
+  border: 1px solid #cccccc;
+}
+.todo-item {
+  border: 5px solid transparent;
+  outline: #ccc solid 1px;
+  outline-offset: -5px;
+}
+
+.complete-ratio {
+  height: 32px;
+}
