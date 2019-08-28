@@ -1,3 +1,4 @@
+/* 看板公共样式 */
 * {
   margin: 0;
   padding: 0;
@@ -7,10 +8,44 @@
 .row {
   margin: 0 !important;
 }
-.work-dashboard-wrapper .col-lg-6.col-md-6 {
-  padding: 0;
-  margin: 0;
-  border: 5px solid transparent;
+
+.title {
+  background: #e2e2e2;
+}
+
+.title h3 {
+  display: inline-block;
+  padding: 6px 12px;
+  margin: 6px 0 6px 12px;
+  font-weight: normal;
+  font-size: 12px;
+  border: 1px solid #3d3d3d;
+  border-radius: 4px;
+}
+
+li {
+  list-style: none
+}
+
+/* 看板样式 */
+.work-dashboard-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 10px;
+}
+
+.todo-content {
+  width: 100%;
+}
+
+.todo-list {
+  display: flex;
+}
+
+.email-type-content,
+.distributed-content {
+  flex: 1;
+  padding: 5px;
 }
 
 .work-dashboard-wrapper #bar-content,
@@ -18,28 +53,31 @@
   overflow: hidden;
 }
 
-.title {
-  background: #ccc;
+.work-dashboard-wrapper .todo-content .todo-item {
+  flex: 1;
+  margin: 5px;
+  padding: 12px;
+  border: 1px solid #ccc;
 }
-.title h3 {
-  display: inline-block;
-  padding: 6px 12px;
-  margin: 6px 0 6px 12px;
-  font-weight: normal;
-  font-size: 12px;
-  border: 1px solid #cccccc;
-  border-radius: 4px;
-}
-li {
-  list-style: none
-}
+
 .top-content {
   border: 1px solid #cccccc;
 }
-.todo-item {
-  border: 5px solid transparent;
-  outline: #ccc solid 1px;
-  outline-offset: -5px;
+
+.top-content .title {
+  border: 1px solid #3d3d3d;
+  border-bottom: 0;
+}
+
+.top-content .top-list {
+  padding: 12px;
+  border: 1px solid #3d3d3d;
+  border-top: 0;
+  margin: 0;
+}
+
+.top-list li {
+  line-height: 32px;
 }
 
 .complete-ratio {

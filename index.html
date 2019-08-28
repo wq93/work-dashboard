@@ -13,47 +13,40 @@
 </head>
 <body>
 <div class='work-dashboard-wrapper'>
-  <div class="col-lg-6 col-md-6">
-    <div class="col-lg-6 col-md-6 todo-item">
-      待处理邮件
-      <div class='complete-ratio'></div>
-    </div>
-    <div class="col-lg-6 col-md-6 todo-item">
-      待处理订单
-      <div class='complete-ratio'></div>
-    </div>
-    <div class="col-lg-6 col-md-6 todo-item">
-      待处理纠纷
-      <div class='complete-ratio'></div>
-    </div>
-    <div class="col-lg-6 col-md-6 todo-item">
-      待处理工单
-      <div class='complete-ratio'></div>
+  <div class="todo-content">
+    <div class='select-distributed-todo'></div>
+    <div class="todo-list">
+      <div class="todo-item">
+        待处理邮件
+        <div class='complete-ratio'></div>
+      </div>
+      <div class="todo-item">
+        待处理订单
+        <div class='complete-ratio'></div>
+      </div>
+      <div class="todo-item">
+        待处理纠纷
+        <div class='complete-ratio'></div>
+      </div>
+      <div class="todo-item">
+        待处理工单
+        <div class='complete-ratio'></div>
+      </div>
     </div>
   </div>
-  <div class="col-lg-6 col-md-6 top-content">
-    <div class='title'>
-      <h3>今日排行榜TOP5</h3>
-    </div>
-    <ul>
-      <li>XXX, 订单已处理1111</li>
-      <li>XXX, 订单已处理1111</li>
-      <li>XXX, 订单已处理1111</li>
-      <li>XXX, 订单已处理1111</li>
-      <li>XXX, 订单已处理1111</li>
-    </ul>
-  </div>
-  <div class="col-lg-6 col-md-6">
+  <div class="distributed-content">
+    <div class='select-distributed-data'></div>
     <div class='title'>
       <h3>事业部数据分布情况</h3>
     </div>
-    <div id="bar-content" style="width: 100%;height:400px;"></div>
+    <div id="bar-content" style="height:400px;"></div>
   </div>
-  <div class="col-lg-6 col-md-6">
+  <div class="email-type-content">
+    <div class='select-email-type'></div>
     <div class='title'>
       <h3>邮件type类型占比统计</h3>
     </div>
-    <div id="fan-line-content" style="width: 100%;height:400px;"></div>
+    <div id="fan-line-content" style="height:400px;"></div>
   </div>
 </div>
 <script src=./index.js></script>
