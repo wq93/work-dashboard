@@ -54,7 +54,7 @@ var businessUnitList = [
 var todolist = [
   {
     title: '待处理邮件', // 标题
-    finish: 1, // 已完成
+    finish: 0, // 已完成
     total: 555, // 总共
   },
   {
@@ -197,6 +197,20 @@ var barData = [
 var myLineChart = null;
 var myBarChart = null;
 
+var intervalMap = {
+  today: function () {
+    return new Date(new Date().toLocaleDateString()).getTime();
+  },
+  week: function () {
+    return Date.now() - 7 * 24 * 60 * 60 * 1000;
+  },
+  month: function () {
+    return Date.now() - 30 * 24 * 60 * 60 * 1000;
+  },
+  threeMonth: function () {
+    return Date.now() - 90 * 24 * 60 * 60 * 1000;
+  }
+}
 // 渲染柱状图
 var renderBarChart = function () {
   var labelOption = {
@@ -396,7 +410,8 @@ var renderSelectDistributeds = function () {
 $('.right-operate').on('click', 'span', function (event) {
   var target = $(event.currentTarget);
   var type = target.attr('data-type');
-
+  var interval = target.attr('data-interval');
+  var startTime = intervalMap[ interval ]();
   // 切换active类名
   $(`.right-operate[data-type=${ type }] span`).removeClass('active');
   $(event.currentTarget).addClass('active');
