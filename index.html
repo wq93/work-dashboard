@@ -6,47 +6,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>work - dashboard</title>
   <link rel="stylesheet" href="./index.css">
-  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-  <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="./echarts-en.min.js"></script>
 </head>
 <body>
 <div class='work-dashboard-wrapper'>
   <div class="todo-content">
-    <div class='select-distributed-todo'></div>
-    <div class="todo-list">
-      <div class="todo-item">
-        待处理邮件
-        <div class='complete-ratio'></div>
-      </div>
-      <div class="todo-item">
-        待处理订单
-        <div class='complete-ratio'></div>
-      </div>
-      <div class="todo-item">
-        待处理纠纷
-        <div class='complete-ratio'></div>
-      </div>
-      <div class="todo-item">
-        待处理工单
-        <div class='complete-ratio'></div>
-      </div>
-    </div>
+    <div class='select-distributed-todo select-distributeds'></div>
+    <div class="todo-list"></div>
   </div>
   <div class="distributed-content">
-    <div class='select-distributed-data'></div>
+    <div class='select-distributed-data select-distributeds'></div>
     <div class='title'>
       <h3>事业部数据分布情况</h3>
+      <div class='fr'>
+        <span>今日</span>
+        <span>本周</span>
+        <span>本月</span>
+        <span>近三月</span>
+      </div>
     </div>
-    <div id="bar-content" style="height:400px;"></div>
+    <div id="bar-content"></div>
   </div>
   <div class="email-type-content">
-    <div class='select-email-type'></div>
+    <div class='select-email-type select-distributeds'></div>
     <div class='title'>
       <h3>邮件type类型占比统计</h3>
+      <div class='fr'>
+        <span>本周</span>
+        <span>本月</span>
+        <span>近三月</span>
+      </div>
     </div>
-    <div id="fan-line-content" style="height:400px;"></div>
+    <div id="fan-line-content"></div>
   </div>
 </div>
 <script src=./index.js></script>

@@ -1,5 +1,5 @@
 // 事业部列表
-var businessUnit = [
+var businessUnitList = [
   {
     id: 1,
     name: 'sw1'
@@ -13,24 +13,65 @@ var businessUnit = [
     name: 'sw3'
   },
   {
-    id: 3,
+    id: 4,
     name: 'sw4'
+  },
+  {
+    id: 5,
+    name: 'sw5'
+  },
+  {
+    id: 6,
+    name: 'sw6'
+  },
+  {
+    id: 1,
+    name: 'sw1'
+  },
+  {
+    id: 2,
+    name: 'sw2'
+  },
+  {
+    id: 3,
+    name: 'sw3'
+  },
+  {
+    id: 4,
+    name: 'sw4'
+  },
+  {
+    id: 5,
+    name: 'sw5'
+  },
+  {
+    id: 6,
+    name: 'sw6'
   }
 ]
 
 // todolist
 var todolist = [
   {
-    iconPath: '', // icon图标链接
     title: '待处理邮件', // 标题
-    finish: 1, // 已完成
-    total: 1, // 总共
+    finish: 11, // 已完成
+    total: 555, // 总共
   },
   {
-    title: '待处理邮件',
-    finish: 1,
-    total: 1
-  }
+    title: '待处理订单',
+    finish: 111,
+    total: 333
+  },
+  {
+    title: '待处理纠纷',
+    finish: 111,
+    total: 222
+  },
+  {
+    title: '待处理工单',
+    finish: 444,
+    total: 555
+  },
 ]
 
 // 扇形图数据
@@ -153,6 +194,9 @@ var barData = [
   },
 ]
 
+var myLineChart = null;
+var myBarChart = null;
+
 // 渲染柱状图
 var renderBarChart = function () {
   var labelOption = {
@@ -210,6 +254,20 @@ var renderBarChart = function () {
       }
     },
     calculable: true,
+    dataZoom: [
+      {
+        show: true,
+        realtime: true,
+        start: 65,
+        end: 85
+      },
+      {
+        type: 'inside',
+        realtime: true,
+        start: 45,
+        end: 85
+      }
+    ],
     xAxis: [
       {
         type: 'category',
@@ -223,18 +281,18 @@ var renderBarChart = function () {
       }
     ],
     series: series,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#f3f3f3',
   };
 
-  var myChart = echarts.init(document.getElementById('bar-content'));
-  myChart.showLoading({
+  myBarChart = echarts.init(document.getElementById('bar-content'));
+  myBarChart.showLoading({
     text: 'loading',
     color: '#f2b047',
     textColor: '#000',
   });
-  myChart.setOption(option);
+  myBarChart.setOption(option);
   setTimeout(() => {
-    myChart.hideLoading();
+    myBarChart.hideLoading();
   }, 800)
 }
 
@@ -267,26 +325,53 @@ var renderFanLineChart = function () {
         }
       }
     ],
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#f3f3f3',
   };
-  var myChart = echarts.init(document.getElementById('fan-line-content'));
-  myChart.showLoading({
+  myLineChart = echarts.init(document.getElementById('fan-line-content'));
+  myLineChart.showLoading({
     text: 'loading',
     color: '#f2b047',
     textColor: '#000',
   });
-  myChart.setOption(option);
+  myLineChart.setOption(option);
   setTimeout(() => {
-    myChart.hideLoading();
+    myLineChart.hideLoading();
   }, 800)
 }
 
-// 渲染事业部列表
-var renderDistributedList = function() {
+// 渲染todo列表
+var renderTodoList = function () {
+  var strHtml = todolist.map(item => {
+    var finishRatio = (item.finish * 100 / item.total).toFixed(2);
+    return `<div class="todo-item">
+        <h3>${ item.title }</h3>
+        <div class='complete-ratio'>
+          <div class='finish-box' style='width:${ finishRatio }%'>已完成<br>${ item.finish }</div>
+          <div class='total-box' style='width:${ 100 - finishRatio }%'>总共<br>${ item.total }</div>
+        </div>
+     </div>`
+  }).join('');
 
+  $('.todo-list').html(strHtml);
 }
 
+// 渲染事业部复选框列表
+var renderSelectDistributeds = function () {
+  var strHtml = `<label><input type="checkbox" data-id='all'>全部</label>`
+  strHtml += businessUnitList.map(item => {
+    return `<label><input type="checkbox" data-id=${ item.id }>${ item.name }</label>`
+  }).join('');
 
+  $('.select-distributeds').html(strHtml);
+}
+
+renderSelectDistributeds();
+renderTodoList();
 renderBarChart();
 renderFanLineChart()
+
+window.addEventListener("resize", () => {
+  myBarChart.resize();
+  myLineChart.resize();
+});
 

@@ -2,15 +2,37 @@
 * {
   margin: 0;
   padding: 0;
+  font-size: 12px;
   box-sizing: border-box;
 }
 
-.row {
-  margin: 0 !important;
+li {
+  list-style: none
+}
+
+label {
+  margin-right: 12px;
+}
+
+.fr {
+  float: right;
+}
+
+.select-distributeds {
+  margin: 12px 0;
+}
+
+.select-distributeds label {
+  margin-right: 12px;
+}
+
+.select-distributeds input {
+  display: inline-block;
+  margin-right: 8px;
 }
 
 .title {
-  background: #e2e2e2;
+  background: #d7d7d7;
 }
 
 .title h3 {
@@ -19,12 +41,12 @@
   margin: 6px 0 6px 12px;
   font-weight: normal;
   font-size: 12px;
-  border: 1px solid #3d3d3d;
+  border: 1px solid #8a8a8a;
   border-radius: 4px;
 }
 
-li {
-  list-style: none
+label {
+  font-size: 12px;
 }
 
 /* 看板样式 */
@@ -36,6 +58,7 @@ li {
 
 .todo-content {
   width: 100%;
+  margin-bottom: 24px;
 }
 
 .todo-list {
@@ -51,35 +74,55 @@ li {
 .work-dashboard-wrapper #bar-content,
 .work-dashboard-wrapper #fan-line-content {
   overflow: hidden;
+  height: calc(100vh - 300px);
 }
 
-.work-dashboard-wrapper .todo-content .todo-item {
+.todo-content .todo-item {
   flex: 1;
   margin: 5px;
   padding: 12px;
-  border: 1px solid #ccc;
+  border: 1px solid #c4c4c4;
+}
+
+.todo-item h3 {
+  font-weight: normal;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.complete-ratio {
+  display: flex;
+  height: 50px;
+  font-size: 12px;
+  font-weight: normal;
+  text-align: center;
+}
+
+.finish-box {
+  border: 1px solid #c4c4c4;
+}
+
+.total-box {
+  margin-left: -1px;
+  border: 1px solid #c4c4c4;
 }
 
 .top-content {
-  border: 1px solid #cccccc;
+  border: 1px solid #c4c4c4;
 }
 
 .top-content .title {
-  border: 1px solid #3d3d3d;
+  border: 1px solid #c4c4c4;
   border-bottom: 0;
 }
 
 .top-content .top-list {
   padding: 12px;
-  border: 1px solid #3d3d3d;
+  border: 1px solid #c4c4c4;
   border-top: 0;
   margin: 0;
 }
 
 .top-list li {
   line-height: 32px;
-}
-
-.complete-ratio {
-  height: 32px;
 }
