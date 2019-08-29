@@ -318,7 +318,7 @@ var renderFanLineChart = function () {
         name: '访问来源',
         type: 'pie',
         radius: '40%',
-        center: [ '60%', '50%' ],
+        center: [ '50%', '50%' ],
         data: lineData,
         itemStyle: {
           emphasis: {
@@ -367,6 +367,21 @@ var renderTodoList = function () {
   $('.todo-list').html(strHtml);
 }
 
+// 刷新模块方法
+var reloadModule = function (type) {
+  switch (type) {
+    case '0':
+      renderTodoList();
+      break;
+    case '1':
+      renderBarChart();
+      break;
+    case '2':
+      renderFanLineChart();
+      break;
+  }
+}
+
 // 渲染事业部复选框列表
 var renderSelectDistributeds = function () {
   var strHtml = `<label><input type="checkbox" data-id='all' class='checkbox-all'>全部</label>`
@@ -390,17 +405,7 @@ $('.right-operate').on('click', 'span', function (event) {
   var checkboxs = $(`.distributeds-checkboxs[data-type=${ type }] input.checkbox-item:checkbox:checked`)
   console.log(checkboxs);
   // 更新模块数据
-  switch (type) {
-    case '0':
-      renderTodoList();
-      break;
-    case '1':
-      renderBarChart();
-      break;
-    case '2':
-      renderFanLineChart();
-      break;
-  }
+  reloadModule(type)
 });
 
 // 点击查询事件
@@ -412,17 +417,7 @@ $('.query-btn').click(function (event) {
   var checkboxs = $(`.distributeds-checkboxs[data-type=${ type }] input.checkbox-item:checkbox:checked`)
   console.log(checkboxs);
   // 更新模块数据
-  switch (type) {
-    case '0':
-      renderTodoList();
-      break;
-    case '1':
-      renderBarChart();
-      break;
-    case '2':
-      renderFanLineChart();
-      break;
-  }
+  reloadModule(type);
 })
 
 // 全选/反选事件
