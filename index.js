@@ -356,26 +356,67 @@ var renderTodoList = function () {
 
 // 渲染事业部复选框列表
 var renderSelectDistributeds = function () {
-  var strHtml = `<label><input type="checkbox" data-id='all'>全部</label>`
+  var strHtml = `<label><input type="checkbox" data-id='all' class='checkbox-all'>全部</label>`
   strHtml += businessUnitList.map(item => {
-    return `<label><input type="checkbox" data-id=${ item.id }>${ item.name }</label>`
+    return `<label><input type="checkbox" data-id=${ item.id } class='checkbox-item'>${ item.name }</label>`
   }).join('');
 
   $('.select-distributeds').html(strHtml);
 }
 
 // 时间段点击事件
-$('.right-operate').on('click','span',function(e) {
-  var target = $(e.currentTarget);
+$('.right-operate').on('click', 'span', function (event) {
+  var target = $(event.currentTarget);
   var type = target.attr('data-type');
-  console.log(type);
+
   // 切换active类名
   $(`.${ type }-operate span`).removeClass('active');
   $(e.currentTarget).addClass('active');
 
   // 获取本模块的多选框
-  var checkboxs = $(`.${ type }-checkboxs input:checkbox:checked`)
+  var checkboxs = $(`.${ type }-checkboxs input.checkbox-item:checkbox:checked`)
+  console.log(checkboxs);
 });
+
+// 点击查询事件
+$('.query-btn').click(function (event) {
+  var target = $(event.currentTarget);
+  var type = target.attr('data-type');
+
+  // 获取本模块的多选框
+  var checkboxs = $(`.${ type }-checkboxs input.checkbox-item:checkbox:checked`)
+  console.log(checkboxs);
+})
+
+// 全选/反选事件
+$(".select-distributeds").on("change", '.checkbox-all', function (event) {
+  var target = $(event.currentTarget);
+  var $parents = target.parents('.select-distributeds');
+  // checkout勾选状态
+  var checkedStatus = target.is(':checked');
+  var checkboxs = $parents.find('.checkbox-item');
+
+  for (var i = 0; i < checkboxs.length; i++) {
+    if (checkboxs[ i ].type == "checkbox")
+      checkboxs[ i ].checked = checkedStatus;
+  }
+})
+
+// 勾选事件
+$(".select-distributeds").on("change", '.checkbox-item', function (event) {
+  var target = $(event.currentTarget);
+  var $parents = target.parents('.select-distributeds');
+
+  // 获取没选中的checkbox-item
+  var unCheckedBoxs = $parents.find(".checkbox-item").not("input:checked");
+
+  // 切换全选勾选框的勾选状态
+  if (unCheckedBoxs.length > 0) {
+    $parents.find('.checkbox-all')[ 0 ].checked = false;
+  } else {
+    $parents.find('.checkbox-all')[ 0 ].checked = true;
+  }
+})
 
 renderSelectDistributeds();
 renderTodoList();

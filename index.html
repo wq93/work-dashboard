@@ -12,11 +12,17 @@
 <body>
 <div class='work-dashboard-wrapper'>
   <div class="todo-content">
-    <div class='select-distributed-todo select-distributeds'></div>
+    <div class="query-header">
+      <div class='todo-checkboxs select-distributeds'></div>
+      <p class='query-btn' data-type='todo'>查询</p>
+    </div>
     <div class="todo-list"></div>
   </div>
   <div class="distributed-content">
-    <div class='distributed-checkboxs select-distributeds'></div>
+    <div class="query-header">
+      <div class='distributed-checkboxs select-distributeds'></div>
+      <p class='query-btn' data-type='distributed'>查询</p>
+    </div>
     <div class='title'>
       <h3>事业部数据分布情况</h3>
       <div class='right-operate distributed-operate'>
@@ -29,7 +35,10 @@
     <div id="bar-content"></div>
   </div>
   <div class="email-type-content">
-    <div class='email-checkboxs select-distributeds'></div>
+    <div class="query-header">
+      <div class='email-checkboxs select-distributeds'></div>
+      <p class='query-btn' data-type='email'>查询</p>
+    </div>
     <div class='title'>
       <h3>邮件type类型占比统计</h3>
       <div class='right-operate email-operate'>

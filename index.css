@@ -28,6 +28,11 @@ label {
   border-radius: 4px;
 }
 
+.right-operate span:hover {
+  background: #0365cc;
+  color: #fff;
+}
+
 .right-operate span.active {
   background: #0365cc;
   color: #fff;
@@ -62,6 +67,27 @@ label {
 
 label {
   font-size: 12px;
+}
+
+.query-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.query-header p {
+  width: 60px;
+  height: 22px;
+  margin: 12px 8px 0 8px;
+  line-height: 22px;
+  text-align: center;
+  border: 1px solid #797979;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.query-header p:hover {
+  background: #0365cc;
+  color: #fff;
 }
 
 /* 看板样式 */
