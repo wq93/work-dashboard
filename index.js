@@ -54,7 +54,7 @@ var businessUnitList = [
 var todolist = [
   {
     title: '待处理邮件', // 标题
-    finish: 11, // 已完成
+    finish: 222, // 已完成
     total: 555, // 总共
   },
   {
@@ -340,12 +340,14 @@ var renderFanLineChart = function () {
 
 // 渲染todo列表
 var renderTodoList = function () {
-  var strHtml = todolist.map(item => {
+  var backgroundList = [ '#a1d5df', '#a1dfa1', '#f7ee7f', '#f1a66a' ]
+
+  var strHtml = todolist.map((item, index) => {
     var finishRatio = (item.finish * 100 / item.total).toFixed(2);
     return `<div class="todo-item">
         <h3>${ item.title }</h3>
         <div class='complete-ratio'>
-          <div class='finish-box' style='width:${ finishRatio }%'>已完成<br>${ item.finish }</div>
+          <div class='finish-box' style='width:${ finishRatio }%; background: ${ backgroundList[ index ] }'>已完成<br>${ item.finish }</div>
           <div class='total-box' style='width:${ 100 - finishRatio }%'>总共<br>${ item.total }</div>
         </div>
      </div>`
@@ -361,7 +363,7 @@ var renderSelectDistributeds = function () {
     return `<label><input type="checkbox" data-id=${ item.id } class='checkbox-item'>${ item.name }</label>`
   }).join('');
 
-  $('.select-distributeds').html(strHtml);
+  $('.distributeds-checkboxs').html(strHtml);
 }
 
 // 时间段点击事件
@@ -370,11 +372,11 @@ $('.right-operate').on('click', 'span', function (event) {
   var type = target.attr('data-type');
 
   // 切换active类名
-  $(`.${ type }-operate span`).removeClass('active');
-  $(e.currentTarget).addClass('active');
+  $(`.right-operate[data-type=${ type }] span`).removeClass('active');
+  $(event.currentTarget).addClass('active');
 
   // 获取本模块的多选框
-  var checkboxs = $(`.${ type }-checkboxs input.checkbox-item:checkbox:checked`)
+  var checkboxs = $(`.distributeds-checkboxs[data-type=${ type }] input.checkbox-item:checkbox:checked`)
   console.log(checkboxs);
 });
 
@@ -384,14 +386,14 @@ $('.query-btn').click(function (event) {
   var type = target.attr('data-type');
 
   // 获取本模块的多选框
-  var checkboxs = $(`.${ type }-checkboxs input.checkbox-item:checkbox:checked`)
+  var checkboxs = $(`.distributeds-checkboxs[data-type=${ type }] input.checkbox-item:checkbox:checked`)
   console.log(checkboxs);
 })
 
 // 全选/反选事件
-$(".select-distributeds").on("change", '.checkbox-all', function (event) {
+$(".distributeds-checkboxs").on("change", '.checkbox-all', function (event) {
   var target = $(event.currentTarget);
-  var $parents = target.parents('.select-distributeds');
+  var $parents = target.parents('.distributeds-checkboxs');
   // checkout勾选状态
   var checkedStatus = target.is(':checked');
   var checkboxs = $parents.find('.checkbox-item');
@@ -402,10 +404,10 @@ $(".select-distributeds").on("change", '.checkbox-all', function (event) {
   }
 })
 
-// 勾选事件
-$(".select-distributeds").on("change", '.checkbox-item', function (event) {
+// 单个勾选事件
+$(".distributeds-checkboxs").on("change", '.checkbox-item', function (event) {
   var target = $(event.currentTarget);
-  var $parents = target.parents('.select-distributeds');
+  var $parents = target.parents('.distributeds-checkboxs');
 
   // 获取没选中的checkbox-item
   var unCheckedBoxs = $parents.find(".checkbox-item").not("input:checked");

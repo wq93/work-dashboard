@@ -38,15 +38,15 @@ label {
   color: #fff;
 }
 
-.select-distributeds {
+.distributeds-checkboxs {
   margin: 12px 0;
 }
 
-.select-distributeds label {
+.distributeds-checkboxs label {
   margin-right: 12px;
 }
 
-.select-distributeds input {
+.distributeds-checkboxs input {
   display: inline-block;
   margin-right: 8px;
 }
