@@ -298,7 +298,6 @@ var renderBarChart = function () {
 
 // 渲染扇形图
 var renderFanLineChart = function () {
-
   var option = {
     tooltip: {
       trigger: 'item',
@@ -365,13 +364,27 @@ var renderSelectDistributeds = function () {
   $('.select-distributeds').html(strHtml);
 }
 
+// 时间段点击事件
+$('.right-operate').on('click','span',function(e) {
+  var target = $(e.currentTarget);
+  var type = target.attr('data-type');
+  console.log(type);
+  // 切换active类名
+  $(`.${ type }-operate span`).removeClass('active');
+  $(e.currentTarget).addClass('active');
+
+  // 获取本模块的多选框
+  var checkboxs = $(`.${ type }-checkboxs input:checkbox:checked`)
+});
+
 renderSelectDistributeds();
 renderTodoList();
 renderBarChart();
 renderFanLineChart()
 
-window.addEventListener("resize", () => {
-  myBarChart.resize();
-  myLineChart.resize();
-});
+// 窗口变化后图表resize
+// window.addEventListener("resize", () => {
+//   myBarChart.resize();
+//   myLineChart.resize();
+// });
 

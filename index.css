@@ -14,8 +14,23 @@ label {
   margin-right: 12px;
 }
 
-.fr {
+.right-operate {
   float: right;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.right-operate span {
+  display: inline-block;
+  padding: 2px 8px;
+  margin-top: 12px;
+  border: 1px solid #797979;
+  border-radius: 4px;
+}
+
+.right-operate span.active {
+  background: #0365cc;
+  color: #fff;
 }
 
 .select-distributeds {
@@ -41,7 +56,7 @@ label {
   margin: 6px 0 6px 12px;
   font-weight: normal;
   font-size: 12px;
-  border: 1px solid #8a8a8a;
+  border: 1px solid #797979;
   border-radius: 4px;
 }
 
@@ -81,7 +96,7 @@ label {
   flex: 1;
   margin: 5px;
   padding: 12px;
-  border: 1px solid #c4c4c4;
+  border: 1px solid #797979;
 }
 
 .todo-item h3 {
@@ -99,20 +114,20 @@ label {
 }
 
 .finish-box {
-  border: 1px solid #c4c4c4;
+  border: 1px solid #797979;
 }
 
 .total-box {
   margin-left: -1px;
-  border: 1px solid #c4c4c4;
+  border: 1px solid #797979;
 }
 
 .top-content {
-  border: 1px solid #c4c4c4;
+  border: 1px solid #797979;
 }
 
 .top-content .title {
-  border: 1px solid #c4c4c4;
+  border: 1px solid #797979;
   border-bottom: 0;
 }
 
