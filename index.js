@@ -54,7 +54,7 @@ var businessUnitList = [
 var todolist = [
   {
     title: '待处理邮件', // 标题
-    finish: 222, // 已完成
+    finish: 1, // 已完成
     total: 555, // 总共
   },
   {
@@ -293,7 +293,7 @@ var renderBarChart = function () {
   myBarChart.setOption(option);
   setTimeout(() => {
     myBarChart.hideLoading();
-  }, 800)
+  }, 500)
 }
 
 // 渲染扇形图
@@ -303,7 +303,12 @@ var renderFanLineChart = function () {
       trigger: 'item',
       formatter: "{a} <br/>{b} : {c} ({d}%)"
     },
+    label: {
+      show: true,
+      formatter: '{b} : {c} ({d}%)'
+    },
     legend: {
+      type: 'scroll',
       orient: 'vertical',
       left: 'left',
       data: lineData.map(item => item.name)
@@ -312,8 +317,8 @@ var renderFanLineChart = function () {
       {
         name: '访问来源',
         type: 'pie',
-        radius: '55%',
-        center: [ '50%', '50%' ],
+        radius: '40%',
+        center: [ '60%', '50%' ],
         data: lineData,
         itemStyle: {
           emphasis: {
@@ -335,7 +340,7 @@ var renderFanLineChart = function () {
   myLineChart.setOption(option);
   setTimeout(() => {
     myLineChart.hideLoading();
-  }, 800)
+  }, 500)
 }
 
 // 渲染todo列表
@@ -343,14 +348,20 @@ var renderTodoList = function () {
   var backgroundList = [ '#a1d5df', '#a1dfa1', '#f7ee7f', '#f1a66a' ]
 
   var strHtml = todolist.map((item, index) => {
-    var finishRatio = (item.finish * 100 / item.total).toFixed(2);
+    var finishRatio = Math.round(item.finish * 100 / item.total);
+    var background = backgroundList[ index ];
     return `<div class="todo-item">
-        <h3>${ item.title }</h3>
-        <div class='complete-ratio'>
-          <div class='finish-box' style='width:${ finishRatio }%; background: ${ backgroundList[ index ] }'>已完成<br>${ item.finish }</div>
-          <div class='total-box' style='width:${ 100 - finishRatio }%'>总共<br>${ item.total }</div>
-        </div>
-     </div>`
+              <h3>${ item.title }</h3>
+              <div class='complete-ratio'>
+                <div class='finish-box' style='width:${ finishRatio }%; background: ${ background };'></div>
+                <div class='unfinish-box' style='width:${ 100 - finishRatio }%;'></div>
+                <p class='ratio-box'>${ finishRatio }%</p>
+              </div>
+              <ul class='description-box'>
+                <li><span class='description-icon' style="background: ${ background }"></span><span>已完成${ item.finish }</span></li>
+                <li><span class='description-icon'></span><span>未完成${ item.total - item.finish }</span></li>
+              </>
+            </div>`
   }).join('');
 
   $('.todo-list').html(strHtml);
@@ -378,6 +389,18 @@ $('.right-operate').on('click', 'span', function (event) {
   // 获取本模块的多选框
   var checkboxs = $(`.distributeds-checkboxs[data-type=${ type }] input.checkbox-item:checkbox:checked`)
   console.log(checkboxs);
+  // 更新模块数据
+  switch (type) {
+    case '0':
+      renderTodoList();
+      break;
+    case '1':
+      renderBarChart();
+      break;
+    case '2':
+      renderFanLineChart();
+      break;
+  }
 });
 
 // 点击查询事件
@@ -388,6 +411,18 @@ $('.query-btn').click(function (event) {
   // 获取本模块的多选框
   var checkboxs = $(`.distributeds-checkboxs[data-type=${ type }] input.checkbox-item:checkbox:checked`)
   console.log(checkboxs);
+  // 更新模块数据
+  switch (type) {
+    case '0':
+      renderTodoList();
+      break;
+    case '1':
+      renderBarChart();
+      break;
+    case '2':
+      renderFanLineChart();
+      break;
+  }
 })
 
 // 全选/反选事件
@@ -423,7 +458,7 @@ $(".distributeds-checkboxs").on("change", '.checkbox-item', function (event) {
 renderSelectDistributeds();
 renderTodoList();
 renderBarChart();
-renderFanLineChart()
+renderFanLineChart();
 
 // 窗口变化后图表resize
 // window.addEventListener("resize", () => {

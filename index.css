@@ -26,16 +26,24 @@ label {
   margin-top: 12px;
   border: 1px solid #797979;
   border-radius: 4px;
+  background: #fff;
 }
 
 .right-operate span:hover {
-  background: #0365cc;
+  background: #1890ff;
+  border: 1px solid #1890ff;
   color: #fff;
 }
 
 .right-operate span.active {
-  background: #0365cc;
+  background: #1890ff;
+  border: 1px solid #1890ff;
   color: #fff;
+}
+
+.right-operate span.active:hover {
+  background: #40a9ff;
+  border: 1px solid #40a9ff;
 }
 
 .distributeds-checkboxs {
@@ -80,13 +88,16 @@ label {
   margin: 12px 8px 0 8px;
   line-height: 22px;
   text-align: center;
-  border: 1px solid #797979;
+  background: #1890ff;
+  border: 1px solid #1890ff;
+  color: #fff;
   border-radius: 4px;
   cursor: pointer;
 }
 
 .query-header p:hover {
-  background: #0365cc;
+  background: #40a9ff;
+  border: 1px solid #40a9ff;
   color: #fff;
 }
 
@@ -114,8 +125,9 @@ label {
 
 .work-dashboard-wrapper #bar-content,
 .work-dashboard-wrapper #fan-line-content {
-  overflow: hidden;
+  overflow-x: hidden;
   height: calc(100vh - 300px);
+  min-height: 400px;
 }
 
 .todo-content .todo-item {
@@ -132,20 +144,52 @@ label {
 }
 
 .complete-ratio {
+  position: relative;
   display: flex;
-  height: 50px;
+  height: 32px;
   font-size: 12px;
   font-weight: normal;
   text-align: center;
+}
+
+.finish-box,
+.unfinish-box {
+  /*padding: 8px;*/
 }
 
 .finish-box {
   border: 1px solid #797979;
 }
 
-.total-box {
+.unfinish-box {
   margin-left: -1px;
   border: 1px solid #797979;
+}
+
+.ratio-box {
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.description-box {
+  display: flex;
+  margin-top: 6px;
+}
+
+.description-box li:first-child {
+  margin-right: 12px;
+}
+
+.description-icon {
+  display: inline-block;
+  width: 30px;
+  height: 20px;
+  margin-right: 8px;
+  border: 1px solid #797979;
+  border-radius: 4px;
+  vertical-align: text-bottom;
 }
 
 .top-content {
