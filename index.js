@@ -1,202 +1,321 @@
-// 事业部列表
-var businessUnitList = [
-  {
-    id: 1,
-    name: 'sw1'
-  },
-  {
-    id: 2,
-    name: 'sw2'
-  },
-  {
-    id: 3,
-    name: 'sw3'
-  },
-  {
-    id: 4,
-    name: 'sw4'
-  },
-  {
-    id: 5,
-    name: 'sw5'
-  },
-  {
-    id: 6,
-    name: 'sw6'
-  },
-  {
-    id: 1,
-    name: 'sw1'
-  },
-  {
-    id: 2,
-    name: 'sw2'
-  },
-  {
-    id: 3,
-    name: 'sw3'
-  },
-  {
-    id: 4,
-    name: 'sw4'
-  },
-  {
-    id: 5,
-    name: 'sw5'
-  },
-  {
-    id: 6,
-    name: 'sw6'
+// 柱状图数据
+var barData = {
+  item: {
+    "barData": [
+      {
+        "name": "新增订单",
+        "data": [
+          {
+            "value": 3,
+            "name": "未知",
+            "id": 0
+          },
+          {
+            "value": 617,
+            "name": "SW事业部",
+            "id": 1
+          },
+          {
+            "value": 267,
+            "name": "JFN事业部",
+            "id": 2
+          },
+          {
+            "value": 155,
+            "name": "PJ事业部",
+            "id": 3
+          },
+          {
+            "value": 43,
+            "name": "Pi事业部",
+            "id": 4
+          },
+          {
+            "value": 1095,
+            "name": "AG事业部",
+            "id": 5
+          },
+          {
+            "value": 2,
+            "name": "HA事业部",
+            "id": 6
+          },
+          {
+            "value": 3,
+            "name": "Q事业部",
+            "id": 7
+          },
+          {
+            "value": 1,
+            "name": "SP事业部",
+            "id": 10
+          },
+          {
+            "value": 1,
+            "name": "W事业部",
+            "id": 11
+          },
+          {
+            "value": 1,
+            "name": "VC事业部",
+            "id": 12
+          },
+          {
+            "value": 2,
+            "name": "SK事业部",
+            "id": 13
+          },
+          {
+            "value": 19,
+            "name": "细刻公共",
+            "id": 15
+          }
+        ]
+      },
+      {
+        "name": "新增邮件",
+        "data": [
+          {
+            "value": 1,
+            "name": "JFN事业部",
+            "id": 2
+          },
+          {
+            "value": 2,
+            "name": "VC事业部",
+            "id": 12
+          }
+        ]
+      },
+      {
+        "name": "新增纠纷",
+        "data": [
+          {
+            "value": 1,
+            "name": "SW事业部",
+            "id": 1
+          },
+          {
+            "value": 1,
+            "name": "JFN事业部",
+            "id": 2
+          }
+        ]
+      },
+      {
+        "name": "新增工单",
+        "data": [
+          {
+            "value": 11,
+            "name": "SW事业部",
+            "id": 1
+          },
+          {
+            "value": 2,
+            "name": "JFN事业部",
+            "id": 2
+          },
+          {
+            "value": 2,
+            "name": "Pi事业部",
+            "id": 4
+          }
+        ]
+      }
+    ]
   }
-]
+}
+
+// 事业部列表
+var businessUnitList = {
+  "code": "OK",
+  "desc": "OK",
+  "item": {
+    "businessUnit": [
+      {
+        "id": 1,
+        "name": "SW事业部"
+      },
+      {
+        "id": 2,
+        "name": "JFN事业部"
+      },
+      {
+        "id": 3,
+        "name": "PJ事业部"
+      },
+      {
+        "id": 4,
+        "name": "Pi事业部"
+      },
+      {
+        "id": 5,
+        "name": "AG事业部"
+      }
+    ]
+  },
+  "errParam": null,
+  "failed": false,
+  "success": true
+};
 
 // todolist
-var todolist = [
-  {
-    title: '待处理邮件', // 标题
-    finish: 0, // 已完成
-    total: 555, // 总共
+var todolist = {
+  "code": "OK",
+  "desc": "OK",
+  "item": {
+    "todolist": [
+      {
+        "finish": 0,
+        "unfinished": 900,
+        "title": "待处理邮件"
+      },
+      {
+        "finish": 3,
+        "unfinished": 686,
+        "title": "待处理订单"
+      },
+      {
+        "finish": 0,
+        "unfinished": 3,
+        "title": "待处理纠纷"
+      },
+      {
+        "finish": 0,
+        "unfinished": 15,
+        "title": "待处理工单"
+      }
+    ]
   },
-  {
-    title: '待处理订单',
-    finish: 111,
-    total: 333
-  },
-  {
-    title: '待处理纠纷',
-    finish: 111,
-    total: 222
-  },
-  {
-    title: '待处理工单',
-    finish: 444,
-    total: 555
-  },
-]
+}
 
 // 扇形图数据
-var lineData = [
-  { value: 335, name: '李阳-1' },
-  { value: 310, name: '李阳-2' },
-  { value: 234, name: '李阳-3' },
-  { value: 135, name: '李阳-4' },
-  { value: 1548, name: '李阳-5' },
-  { value: 1548, name: '李阳-6' },
-  { value: 1548, name: '李阳-7' },
-  { value: 1548, name: '李阳-8' },
-  { value: 1548, name: '李阳-9' },
-  { value: 1548, name: '李阳-10' },
-  { value: 1548, name: '李阳-11' },
-  { value: 1548, name: '李阳-12' },
-];
-
-// 柱状图数据
-var barData = [
-  {
-    name: '早上点外卖',
-    data: [
+var lineData = {
+  "item": {
+    "lineData": [
       {
-        name: '李阳事业部-1',
-        value: 110,
+        "value": 727,
+        "name": null
       },
       {
-        name: '李阳事业部-2',
-        value: 111,
+        "value": 3,
+        "name": "Account Issues"
       },
       {
-        name: '李阳事业部-3',
-        value: 112,
+        "value": 7,
+        "name": "Discounts/Promotion"
       },
       {
-        name: '李阳事业部-4',
-        value: 113,
+        "value": 265,
+        "name": "Order Shipping"
       },
       {
-        name: '李阳事业部-5',
-        value: 114,
+        "value": 525,
+        "name": "Order Status"
+      },
+      {
+        "value": 238,
+        "name": "Others"
+      },
+      {
+        "value": 7,
+        "name": "Product Details"
+      },
+      {
+        "value": 1271,
+        "name": "Return/Exchange/Refund"
       }
     ]
   },
-  {
-    name: '中午点外卖',
-    data: [
-      {
-        name: '李阳事业部-1',
-        value: 120,
-      },
-      {
-        name: '李阳事业部-2',
-        value: 121,
-      },
-      {
-        name: '李阳事业部-3',
-        value: 122,
-      },
-      {
-        name: '李阳事业部-4',
-        value: 123,
-      },
-      {
-        name: '李阳事业部-5',
-        value: 124,
-      }
-    ]
-  },
-  {
-    name: '晚上点外卖',
-    data: [
-      {
-        name: '李阳事业部-1',
-        value: 130,
-      },
-      {
-        name: '李阳事业部-2',
-        value: 131,
-      },
-      {
-        name: '李阳事业部-3',
-        value: 132,
-      },
-      {
-        name: '李阳事业部-4',
-        value: 133,
-      },
-      {
-        name: '李阳事业部-5',
-        value: 134,
-      }
-    ]
-  },
-  {
-    name: '夜宵点外卖',
-    data: [
-      {
-        name: '李阳事业部-1',
-        value: 140,
-      },
-      {
-        name: '李阳事业部-2',
-        value: 141,
-      },
-      {
-        name: '李阳事业部-3',
-        value: 142,
-      },
-      {
-        name: '李阳事业部-4',
-        value: 143,
-      },
-      {
-        name: '李阳事业部-5',
-        value: 144,
-      }
-    ]
-  },
-]
+};
 
 var myLineChart = null;
 var myBarChart = null;
 
+// 获取事业部数据
+var getBusinessUnitList = function () {
+  $.ajax({
+    type: "GET",
+    url: '/api/displayPlatFrom/get/groups',
+    dataType: "json",
+    success: function (data) {
+      businessUnitList = data.item.businessUnitList;
+      renderSelectDistributeds();
+    },
+    error: function (jqXHR) {
+      businessUnitList = [];
+      renderSelectDistributeds();
+    }
+  });
+};
+
+// 获取扇形图数据
+var getFanLineChartData = function (ids, time) {
+  $.ajax({
+    type: "GET",
+    url: `/api/displayPlatFrom/get/freshdeskTicketType?tmie=${time}&groups=${ids}`,
+    dataType: "json",
+    success: function (data) {
+      lineData = data.item.lineData;
+      renderFanLineChart();
+    },
+    error: function (jqXHR) {
+      lineData = [];
+      renderFanLineChart();
+    }
+  });
+}
+
+// 获取todolist数据
+var getTodoListData = function (ids) {
+  $.ajax({
+    type: "GET",
+    url: `/api/displayPlatFrom/get/todolist?groups=${ids}`,
+    dataType: "json",
+    success: function (data) {
+      todolist = data.item.todolist;
+      renderTodoList();
+    },
+    error: function (jqXHR) {
+      todolist = [];
+      renderTodoList();
+    }
+  });
+}
+
+// 获取柱状图数据
+var getBarData = function (ids, time) {
+  $.ajax({
+    type: "GET",
+    url: `/api/displayPlatFrom/get/barData?groups=${ids}&time=${time}`,
+    dataType: "json",
+    success: function (data) {
+      barData = data.item.barData;
+      renderBarChart();
+    },
+    error: function (jqXHR) {
+      barData = [];
+      renderBarChart();
+    }
+  });
+}
+
+// 刷新模块方法
+var reloadModule = function (type, ids, time) {
+  switch (type) {
+    case '0':
+      getTodoListData(ids, time);
+      break;
+    case '1':
+      getBarData(ids, time);
+      break;
+    case '2':
+      getFanLineChartData(ids, time);
+      break;
+  }
+}
+
+// 返回时间间隔时间戳
 var intervalMap = {
   today: function () {
     return new Date(new Date().toLocaleDateString()).getTime();
@@ -272,14 +391,14 @@ var renderBarChart = function () {
       {
         show: true,
         realtime: true,
-        start: 65,
-        end: 85
+        start: 0,
+        end: 30
       },
       {
         type: 'inside',
         realtime: true,
-        start: 45,
-        end: 85
+        start: 0,
+        end: 30
       }
     ],
     xAxis: [
@@ -362,7 +481,7 @@ var renderTodoList = function () {
   var backgroundList = [ '#a1d5df', '#a1dfa1', '#f7ee7f', '#f1a66a' ]
 
   var strHtml = todolist.map((item, index) => {
-    var finishRatio = Math.round(item.finish * 100 / item.total);
+    var finishRatio = Math.round(item.finish * 100 / (item.unfinished + item.finish));
     var background = backgroundList[ index ];
     return `<div class="todo-item">
               <h3>${ item.title }</h3>
@@ -373,27 +492,12 @@ var renderTodoList = function () {
               </div>
               <ul class='description-box'>
                 <li><span class='description-icon' style="background: ${ background }"></span><span>已完成${ item.finish }</span></li>
-                <li><span class='description-icon'></span><span>未完成${ item.total - item.finish }</span></li>
+                <li><span class='description-icon'></span><span>未完成${ item.unfinished }</span></li>
               </>
             </div>`
   }).join('');
 
   $('.todo-list').html(strHtml);
-}
-
-// 刷新模块方法
-var reloadModule = function (type) {
-  switch (type) {
-    case '0':
-      renderTodoList();
-      break;
-    case '1':
-      renderBarChart();
-      break;
-    case '2':
-      renderFanLineChart();
-      break;
-  }
 }
 
 // 渲染事业部复选框列表
@@ -409,18 +513,26 @@ var renderSelectDistributeds = function () {
 // 时间段点击事件
 $('.right-operate').on('click', 'span', function (event) {
   var target = $(event.currentTarget);
+
+  // 如果当前元素是被点击的, 不做任何操作
+  if(target.hasClass('active')) return false;
+
   var type = target.attr('data-type');
   var interval = target.attr('data-interval');
   var startTime = intervalMap[ interval ]();
   // 切换active类名
   $(`.right-operate[data-type=${ type }] span`).removeClass('active');
-  $(event.currentTarget).addClass('active');
+  target.addClass('active');
 
   // 获取本模块的多选框
   var checkboxs = $(`.distributeds-checkboxs[data-type=${ type }] input.checkbox-item:checkbox:checked`)
-  console.log(checkboxs);
+
+  var ids = $.map(checkboxs, function (item) {
+    return $(item).attr('data-id');
+  }).join(',')
+
   // 更新模块数据
-  reloadModule(type)
+  reloadModule(type, ids, startTime)
 });
 
 // 点击查询事件
@@ -429,10 +541,19 @@ $('.query-btn').click(function (event) {
   var type = target.attr('data-type');
 
   // 获取本模块的多选框
-  var checkboxs = $(`.distributeds-checkboxs[data-type=${ type }] input.checkbox-item:checkbox:checked`)
-  console.log(checkboxs);
+  var checkboxs = $(`.distributeds-checkboxs[data-type=${ type }] input.checkbox-item:checkbox:checked`) || [];
+
+  var ids = $.map(checkboxs, function (item) {
+    return $(item).attr('data-id');
+  }).join(',')
+
+
+  var $groupsBox = target.parents('.groups-box');;
+  var interval = $groupsBox.find('.right-operate .active').attr('data-interval');
+  var startTime = intervalMap[ interval ]();
+
   // 更新模块数据
-  reloadModule(type);
+  reloadModule(type, ids, startTime);
 })
 
 // 全选/反选事件
@@ -465,12 +586,13 @@ $(".distributeds-checkboxs").on("change", '.checkbox-item', function (event) {
   }
 })
 
-renderSelectDistributeds();
-renderTodoList();
-renderBarChart();
-renderFanLineChart();
+getBusinessUnitList();
+getFanLineChartData();
+getTodoListData();
+getBarData();
 
 // 窗口变化后图表resize
+
 // window.addEventListener("resize", () => {
 //   myBarChart.resize();
 //   myLineChart.resize();
