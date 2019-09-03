@@ -100,7 +100,10 @@ label {
   border: 1px solid #40a9ff;
   color: #fff;
 }
-
+.no-data {
+  margin-top: 120px;
+  text-align: center;
+}
 /* 看板样式 */
 .work-dashboard-wrapper {
   display: flex;

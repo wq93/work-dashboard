@@ -250,27 +250,52 @@ var getBusinessUnitList = function () {
 };
 
 // 获取扇形图数据
-var getFanLineChartData = function (ids, time) {
+var getFanLineChartData = function (ids = '', time = '') {
   $.ajax({
     type: "GET",
-    url: `/api/displayPlatFrom/get/freshdeskTicketType?tmie=${time}&groups=${ids}`,
+    url: `/api/displayPlatFrom/get/freshdeskTicketType?tmie=${ time }&groups=${ ids }`,
     dataType: "json",
     success: function (data) {
       lineData = data.item.lineData;
-      renderFanLineChart();
+      if (lineData.length > 0) {
+        renderFanLineChart();
+      } else {
+        $('#fan-line-content').html(`<p class='no-data'>暂无数据</p>`)
+      }
     },
     error: function (jqXHR) {
       lineData = [];
-      renderFanLineChart();
+      $('#fan-line-content').html(`<p class='no-data'>暂无数据</p>`)
+    }
+  });
+}
+
+// 获取柱状图数据
+var getBarData = function (ids = '', time = '') {
+  $.ajax({
+    type: "GET",
+    url: `/api/displayPlatFrom/get/barData?groups=${ ids }&time=${ time }`,
+    dataType: "json",
+    success: function (data) {
+      barData = data.item.barData;
+      if (lineData.length > 0) {
+        renderBarChart();
+      } else {
+        $('#bar-content').html(`<p class='no-data'>暂无数据</p>`)
+      }
+    },
+    error: function (jqXHR) {
+      barData = [];
+      $('#bar-content').html(`<p class='no-data'>暂无数据</p>`)
     }
   });
 }
 
 // 获取todolist数据
-var getTodoListData = function (ids) {
+var getTodoListData = function (ids = '') {
   $.ajax({
     type: "GET",
-    url: `/api/displayPlatFrom/get/todolist?groups=${ids}`,
+    url: `/api/displayPlatFrom/get/todolist?groups=${ ids }`,
     dataType: "json",
     success: function (data) {
       todolist = data.item.todolist;
@@ -283,25 +308,8 @@ var getTodoListData = function (ids) {
   });
 }
 
-// 获取柱状图数据
-var getBarData = function (ids, time) {
-  $.ajax({
-    type: "GET",
-    url: `/api/displayPlatFrom/get/barData?groups=${ids}&time=${time}`,
-    dataType: "json",
-    success: function (data) {
-      barData = data.item.barData;
-      renderBarChart();
-    },
-    error: function (jqXHR) {
-      barData = [];
-      renderBarChart();
-    }
-  });
-}
-
 // 刷新模块方法
-var reloadModule = function (type, ids, time) {
+var reloadModule = function (type, ids = '', time = '') {
   switch (type) {
     case '0':
       getTodoListData(ids, time);
@@ -330,6 +338,7 @@ var intervalMap = {
     return Date.now() - 90 * 24 * 60 * 60 * 1000;
   }
 }
+
 // 渲染柱状图
 var renderBarChart = function () {
   var labelOption = {
@@ -350,15 +359,19 @@ var renderBarChart = function () {
     }
   };
 
-  var categories = barData[ 0 ][ 'data' ].map(item => item.name);
+  var categories = $.map(barData[ 0 ][ 'data' ], function (item) {
+    return item.name;
+  })
 
-  var series = barData.map(item => {
+  var series = $.map(barData, function (item) {
     return {
       name: item.name,
       type: 'bar',
       barGap: 0,
       label: labelOption,
-      data: item.data.map(item => item.value),
+      data: $.map(item.data, function () {
+        return item.value
+      }),
     }
   })
 
@@ -424,7 +437,7 @@ var renderBarChart = function () {
     textColor: '#000',
   });
   myBarChart.setOption(option);
-  setTimeout(() => {
+  setTimeout(function () {
     myBarChart.hideLoading();
   }, 500)
 }
@@ -444,7 +457,9 @@ var renderFanLineChart = function () {
       type: 'scroll',
       orient: 'vertical',
       left: 'left',
-      data: lineData.map(item => item.name)
+      data: $.map(lineData, function (item) {
+        return item.name;
+      })
     },
     series: [
       {
@@ -471,7 +486,7 @@ var renderFanLineChart = function () {
     textColor: '#000',
   });
   myLineChart.setOption(option);
-  setTimeout(() => {
+  setTimeout(function () {
     myLineChart.hideLoading();
   }, 500)
 }
@@ -480,7 +495,7 @@ var renderFanLineChart = function () {
 var renderTodoList = function () {
   var backgroundList = [ '#a1d5df', '#a1dfa1', '#f7ee7f', '#f1a66a' ]
 
-  var strHtml = todolist.map((item, index) => {
+  var strHtml = $.map(todolist, function (item, index) {
     var finishRatio = Math.round(item.finish * 100 / (item.unfinished + item.finish));
     var background = backgroundList[ index ];
     return `<div class="todo-item">
@@ -497,14 +512,16 @@ var renderTodoList = function () {
             </div>`
   }).join('');
 
-  $('.todo-list').html(strHtml);
+
+    $('.todo-list').html(strHtml);
 }
 
 // 渲染事业部复选框列表
 var renderSelectDistributeds = function () {
-  var strHtml = `<label><input type="checkbox" data-id='all' class='checkbox-all'>全部</label>`
-  strHtml += businessUnitList.map(item => {
-    return `<label><input type="checkbox" data-id=${ item.id } class='checkbox-item'>${ item.name }</label>`
+  var strHtml = `<label><input type="checkbox" data-id='all' class='checkbox-all'>全部</label>`;
+
+  strHtml += $.map(businessUnitList, function (item) {
+    return `<label><input type="checkbox" data-id=${ item.id } class='checkbox-item'>${ item.name }</label>`;
   }).join('');
 
   $('.distributeds-checkboxs').html(strHtml);
@@ -515,7 +532,7 @@ $('.right-operate').on('click', 'span', function (event) {
   var target = $(event.currentTarget);
 
   // 如果当前元素是被点击的, 不做任何操作
-  if(target.hasClass('active')) return false;
+  if (target.hasClass('active')) return false;
 
   var type = target.attr('data-type');
   var interval = target.attr('data-interval');
@@ -548,7 +565,8 @@ $('.query-btn').click(function (event) {
   }).join(',')
 
 
-  var $groupsBox = target.parents('.groups-box');;
+  var $groupsBox = target.parents('.groups-box');
+  ;
   var interval = $groupsBox.find('.right-operate .active').attr('data-interval');
   var startTime = intervalMap[ interval ]();
 
@@ -586,6 +604,7 @@ $(".distributeds-checkboxs").on("change", '.checkbox-item', function (event) {
   }
 })
 
+// 初始调用
 getBusinessUnitList();
 getFanLineChartData();
 getTodoListData();
@@ -593,8 +612,8 @@ getBarData();
 
 // 窗口变化后图表resize
 
-// window.addEventListener("resize", () => {
-//   myBarChart.resize();
-//   myLineChart.resize();
-// });
+window.addEventListener("resize", function () {
+  myBarChart.resize();
+  myLineChart.resize();
+});
 
