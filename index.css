@@ -59,11 +59,11 @@ label {
   margin-right: 8px;
 }
 
-.title {
+.work-dashboard-wrapper .title {
   background: #d7d7d7;
 }
 
-.title h3 {
+.work-dashboard-wrapper .title h3 {
   display: inline-block;
   padding: 6px 12px;
   margin: 6px 0 6px 12px;

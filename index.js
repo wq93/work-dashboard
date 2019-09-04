@@ -1,233 +1,14 @@
 // 柱状图数据
-var barData = {
-  item: {
-    "barData": [
-      {
-        "name": "新增订单",
-        "data": [
-          {
-            "value": 3,
-            "name": "未知",
-            "id": 0
-          },
-          {
-            "value": 617,
-            "name": "SW事业部",
-            "id": 1
-          },
-          {
-            "value": 267,
-            "name": "JFN事业部",
-            "id": 2
-          },
-          {
-            "value": 155,
-            "name": "PJ事业部",
-            "id": 3
-          },
-          {
-            "value": 43,
-            "name": "Pi事业部",
-            "id": 4
-          },
-          {
-            "value": 1095,
-            "name": "AG事业部",
-            "id": 5
-          },
-          {
-            "value": 2,
-            "name": "HA事业部",
-            "id": 6
-          },
-          {
-            "value": 3,
-            "name": "Q事业部",
-            "id": 7
-          },
-          {
-            "value": 1,
-            "name": "SP事业部",
-            "id": 10
-          },
-          {
-            "value": 1,
-            "name": "W事业部",
-            "id": 11
-          },
-          {
-            "value": 1,
-            "name": "VC事业部",
-            "id": 12
-          },
-          {
-            "value": 2,
-            "name": "SK事业部",
-            "id": 13
-          },
-          {
-            "value": 19,
-            "name": "细刻公共",
-            "id": 15
-          }
-        ]
-      },
-      {
-        "name": "新增邮件",
-        "data": [
-          {
-            "value": 1,
-            "name": "JFN事业部",
-            "id": 2
-          },
-          {
-            "value": 2,
-            "name": "VC事业部",
-            "id": 12
-          }
-        ]
-      },
-      {
-        "name": "新增纠纷",
-        "data": [
-          {
-            "value": 1,
-            "name": "SW事业部",
-            "id": 1
-          },
-          {
-            "value": 1,
-            "name": "JFN事业部",
-            "id": 2
-          }
-        ]
-      },
-      {
-        "name": "新增工单",
-        "data": [
-          {
-            "value": 11,
-            "name": "SW事业部",
-            "id": 1
-          },
-          {
-            "value": 2,
-            "name": "JFN事业部",
-            "id": 2
-          },
-          {
-            "value": 2,
-            "name": "Pi事业部",
-            "id": 4
-          }
-        ]
-      }
-    ]
-  }
-}
+var barData = []
 
 // 事业部列表
-var businessUnitList = {
-  "code": "OK",
-  "desc": "OK",
-  "item": {
-    "businessUnit": [
-      {
-        "id": 1,
-        "name": "SW事业部"
-      },
-      {
-        "id": 2,
-        "name": "JFN事业部"
-      },
-      {
-        "id": 3,
-        "name": "PJ事业部"
-      },
-      {
-        "id": 4,
-        "name": "Pi事业部"
-      },
-      {
-        "id": 5,
-        "name": "AG事业部"
-      }
-    ]
-  },
-  "errParam": null,
-  "failed": false,
-  "success": true
-};
+var businessUnitList = [];
 
 // todolist
-var todolist = {
-  "code": "OK",
-  "desc": "OK",
-  "item": {
-    "todolist": [
-      {
-        "finish": 0,
-        "unfinished": 900,
-        "title": "待处理邮件"
-      },
-      {
-        "finish": 3,
-        "unfinished": 686,
-        "title": "待处理订单"
-      },
-      {
-        "finish": 0,
-        "unfinished": 3,
-        "title": "待处理纠纷"
-      },
-      {
-        "finish": 0,
-        "unfinished": 15,
-        "title": "待处理工单"
-      }
-    ]
-  },
-}
+var todolist = []
 
 // 扇形图数据
-var lineData = {
-  "item": {
-    "lineData": [
-      {
-        "value": 727,
-        "name": null
-      },
-      {
-        "value": 3,
-        "name": "Account Issues"
-      },
-      {
-        "value": 7,
-        "name": "Discounts/Promotion"
-      },
-      {
-        "value": 265,
-        "name": "Order Shipping"
-      },
-      {
-        "value": 525,
-        "name": "Order Status"
-      },
-      {
-        "value": 238,
-        "name": "Others"
-      },
-      {
-        "value": 7,
-        "name": "Product Details"
-      },
-      {
-        "value": 1271,
-        "name": "Return/Exchange/Refund"
-      }
-    ]
-  },
-};
+var lineData = [];
 
 var myLineChart = null;
 var myBarChart = null;
@@ -239,60 +20,105 @@ var getBusinessUnitList = function () {
     url: '/api/displayPlatFrom/get/groups',
     dataType: "json",
     success: function (data) {
-      businessUnitList = data.item.businessUnitList;
+      businessUnitList = data.item.businessUnit;
       renderSelectDistributeds();
+
+      // 请求模块数据
+      getFanLineChartData();
+      getTodoListData();
+      getBarData();
     },
     error: function (jqXHR) {
       businessUnitList = [];
-      renderSelectDistributeds();
+      $('.work-dashboard-wrapper').html(`<p class='no-data' style='font-size: 22px; margin: 120px auto'>欢迎访问ACE系统</p>`)
     }
   });
 };
 
 // 获取扇形图数据
-var getFanLineChartData = function (ids = '', time = '') {
+var getFanLineChartData = function (ids = '', time = 0) {
+  time = time ? time : intervalMap['week']();
   $.ajax({
     type: "GET",
-    url: `/api/displayPlatFrom/get/freshdeskTicketType?tmie=${ time }&groups=${ ids }`,
+    url: `/api/displayPlatFrom/get/freshdeskTicketType?time=${ time }&groups=${ ids }`,
     dataType: "json",
     success: function (data) {
       lineData = data.item.lineData;
       if (lineData.length > 0) {
+        $('#fan-line-content').show();
+        $('.line-no-data').hide();
         renderFanLineChart();
       } else {
-        $('#fan-line-content').html(`<p class='no-data'>暂无数据</p>`)
+        $('#fan-line-content').hide();
+        $('.line-no-data').show();
       }
     },
     error: function (jqXHR) {
       lineData = [];
-      $('#fan-line-content').html(`<p class='no-data'>暂无数据</p>`)
+      $('#fan-line-content').hide();
+      $('.line-no-data').show();
     }
   });
 }
 
 // 获取柱状图数据
-var getBarData = function (ids = '', time = '') {
+var getBarData = function (ids = '', time = 0) {
+  time = time ? time : intervalMap['today']();
+
+  if(!ids) {
+    // 获取本模块的多选框
+    var checkboxs = $(`.distributeds-checkboxs[data-type='1'] input.checkbox-item:checkbox:checked`);
+
+    var checkboxsids = $.map(checkboxs, function (item) {
+      return $(item).attr('data-id');
+    }).join(',');
+    ids = checkboxsids;
+  }
+
   $.ajax({
     type: "GET",
     url: `/api/displayPlatFrom/get/barData?groups=${ ids }&time=${ time }`,
     dataType: "json",
     success: function (data) {
       barData = data.item.barData;
-      if (lineData.length > 0) {
+
+      // 过滤空数组
+      barData = $.map(barData, function (item) {
+        if(item.data.length > 0) {
+          return item;
+        }
+      })
+
+      if (barData.length > 0) {
+        $('#bar-content').show();
+        $('.bar-no-data').hide();
         renderBarChart();
       } else {
-        $('#bar-content').html(`<p class='no-data'>暂无数据</p>`)
+        $('#bar-content').hide();
+        $('.bar-no-data').show();
       }
     },
     error: function (jqXHR) {
       barData = [];
-      $('#bar-content').html(`<p class='no-data'>暂无数据</p>`)
+      $('#bar-content').hide();
+      $('.bar-no-data').show();
     }
   });
 }
 
 // 获取todolist数据
 var getTodoListData = function (ids = '') {
+
+  if(!ids) {
+    // 获取本模块的多选框
+    var checkboxs = $(`.distributeds-checkboxs[data-type='0'] input.checkbox-item:checkbox:checked`);
+
+    var checkboxsids = $.map(checkboxs, function (item) {
+      return $(item).attr('data-id');
+    }).join(',');
+    ids = checkboxsids;
+  }
+
   $.ajax({
     type: "GET",
     url: `/api/displayPlatFrom/get/todolist?groups=${ ids }`,
@@ -323,19 +149,24 @@ var reloadModule = function (type, ids = '', time = '') {
   }
 }
 
-// 返回时间间隔时间戳
+// 获取当天0点的时间戳
+var getTodayTime = function () {
+  return new Date(new Date().toLocaleDateString()).getTime();
+}
+
+// 返回时间间隔时间戳(秒)
 var intervalMap = {
   today: function () {
-    return new Date(new Date().toLocaleDateString()).getTime();
+    return ((new Date(new Date().toLocaleDateString()).getTime())/1000).toFixed(0);
   },
   week: function () {
-    return Date.now() - 7 * 24 * 60 * 60 * 1000;
+    return ((getTodayTime() - 7 * 24 * 60 * 60 *1000)/1000).toFixed(0);
   },
   month: function () {
-    return Date.now() - 30 * 24 * 60 * 60 * 1000;
+    return ((getTodayTime() - 30 * 24 * 60 * 60 *1000)/1000).toFixed(0);
   },
   threeMonth: function () {
-    return Date.now() - 90 * 24 * 60 * 60 * 1000;
+    return ((getTodayTime() - 90 * 24 * 60 * 60 *1000)/1000).toFixed(0) ;
   }
 }
 
@@ -369,8 +200,8 @@ var renderBarChart = function () {
       type: 'bar',
       barGap: 0,
       label: labelOption,
-      data: $.map(item.data, function () {
-        return item.value
+      data: $.map(item.data, function (itemVal) {
+        return itemVal.value
       }),
     }
   })
@@ -444,11 +275,13 @@ var renderBarChart = function () {
 
 // 渲染扇形图
 var renderFanLineChart = function () {
+
   var option = {
     tooltip: {
       trigger: 'item',
       formatter: "{a} <br/>{b} : {c} ({d}%)"
     },
+    color:['#37a2da','#9fe6b8','#ffdb5c', '#ed86b2', '#e7bcf3', '#9d96f5'],
     label: {
       show: true,
       formatter: '{b} : {c} ({d}%)'
@@ -513,18 +346,26 @@ var renderTodoList = function () {
   }).join('');
 
 
-    $('.todo-list').html(strHtml);
+  $('.todo-list').html(strHtml);
 }
 
 // 渲染事业部复选框列表
 var renderSelectDistributeds = function () {
-  var strHtml = `<label><input type="checkbox" data-id='all' class='checkbox-all'>全部</label>`;
+  var strHtml = `<label><input type="checkbox" data-id='all' class='checkbox-all checkbox' checked>全部</label>`;
 
   strHtml += $.map(businessUnitList, function (item) {
-    return `<label><input type="checkbox" data-id=${ item.id } class='checkbox-item'>${ item.name }</label>`;
+    return `<label><input type="checkbox" data-id=${ item.id } class='checkbox-item checkbox' checked>${ item.name }</label>`;
   }).join('');
 
   $('.distributeds-checkboxs').html(strHtml);
+
+  // 初始默认勾选框都选中
+  // var checkboxs = $('.distributeds-checkboxs').find('.checkbox');
+  //
+  // for (var i = 0; i < checkboxs.length; i++) {
+  //   if (checkboxs[ i ].type == "checkbox")
+  //     checkboxs[ i ].checked = true;
+  // }
 }
 
 // 时间段点击事件
@@ -566,7 +407,6 @@ $('.query-btn').click(function (event) {
 
 
   var $groupsBox = target.parents('.groups-box');
-  ;
   var interval = $groupsBox.find('.right-operate .active').attr('data-interval');
   var startTime = intervalMap[ interval ]();
 
@@ -606,14 +446,11 @@ $(".distributeds-checkboxs").on("change", '.checkbox-item', function (event) {
 
 // 初始调用
 getBusinessUnitList();
-getFanLineChartData();
-getTodoListData();
-getBarData();
 
 // 窗口变化后图表resize
+// window.addEventListener("resize", function () {
+  //myBarChart.resize();
+  // myLineChart.resize();
+// });
 
-window.addEventListener("resize", function () {
-  myBarChart.resize();
-  myLineChart.resize();
-});
 
